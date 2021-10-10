@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         sharedPreferences = getSharedPreferences("MY_PREF", MODE_PRIVATE);
+        this.setTitle("Android Notes");
     }
 
     public void savePrefs(View v) {
