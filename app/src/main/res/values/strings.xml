@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Android_Notes_App</string>
+    <string name="about">About</string>
+    <string name="add_new_note">Add New Note</string>
+    <string name="note_title">Note Title</string>
+    <string name="date_time">Date Time</string>
+    <string name="note_text">Note Text</string>
 </resources>

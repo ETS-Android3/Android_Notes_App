@@ -8,11 +8,13 @@ public class Note implements Serializable {
     private String title;
     private String noteText;
     private Date date;
+    private static int counter = 1;
 
     public Note(String title, String noteText, Date date) {
-        this.title = title;
+        this.title = title + " " + counter;
         this.noteText = noteText;
         this.date = date;
+        counter++;
     }
 
     public String getTitle() {
