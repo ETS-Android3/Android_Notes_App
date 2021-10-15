@@ -10,6 +10,10 @@ public class Note implements Serializable {
     private Date date;
     private static int counter = 1;
 
+    public Note() {
+
+    }
+
     public Note(String title, String noteText, Date date) {
         this.title = title + " " + counter;
         this.noteText = noteText;
