@@ -5,4 +5,7 @@
     <string name="note_title">Note Title</string>
     <string name="date_time">Date Time</string>
     <string name="note_text">Note Text</string>
+    <string name="android_notes">Android Notes</string>
+    <string name="_2021_riddhi_damani">© 2021 Riddhi Damani</string>
+    <string name="version_1_0">Version 1.0</string>
 </resources>
