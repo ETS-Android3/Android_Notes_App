@@ -37,9 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView.setAdapter(notesAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        for(int i=0; i < 30; i++) {
-            notesList.add(new Note());
-        }
+
     }
 
     @Override
@@ -66,11 +64,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
-    public void savePrefs(View v) {
-
-    }
-
-
     @Override
     public void onClick(View view) {
         int position = recyclerView.getChildAdapterPosition(view);
@@ -87,16 +80,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
-    @Override
-    public void onBackPressed() {
-        Toast.makeText(this, "The Back button was pressed - Bye!", Toast.LENGTH_LONG).show();
-        super.onBackPressed();
-    }
-
     // When info icon is clicked, About Activity is opened.
     public boolean openAboutActivity(MenuItem item) {
         Intent intent = new Intent(this, AboutActivity.class);
         startActivity(intent);
         return true;
+    }
+
+    // When + icon is clicked, Edit Activity is opened.
+    public boolean openEditActivity(MenuItem item) {
+        Intent intent = new Intent(this, EditActivity.class);
+        startActivity(intent);
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this, "The Back button was pressed - Bye!", Toast.LENGTH_LONG).show();
+        super.onBackPressed();
     }
 }

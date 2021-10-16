@@ -12,6 +12,7 @@
     <item
         android:id="@+id/addNewNoteOpt"
         android:icon="@android:drawable/ic_input_add"
+        android:onClick="openEditActivity"
         android:title="@string/add_new_note"
         app:showAsAction="ifRoom" />
 </menu>

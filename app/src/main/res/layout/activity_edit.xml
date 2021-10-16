@@ -6,4 +6,43 @@
     android:layout_height="match_parent"
     tools:context=".EditActivity">
 
+    <EditText
+        android:id="@+id/noteTitleEdit"
+        android:layout_width="379dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="#EAE6E6"
+        android:hint="@string/note_title"
+        android:includeFontPadding="true"
+        android:inputType="text"
+        android:paddingStart="10dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="10dp"
+        android:textColorHint="#757575"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/noteTextEdit"
+        android:layout_width="377dp"
+        android:layout_height="501dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="#EAE6E6"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="@string/note_text"
+        android:includeFontPadding="true"
+        android:inputType="textMultiLine"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:paddingRight="10dp"
+        android:textColorHint="#757575"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/noteTitleEdit" />
 </androidx.constraintlayout.widget.ConstraintLayout>

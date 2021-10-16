@@ -7,17 +7,16 @@ public class Note implements Serializable {
 
     private String title;
     private String noteText;
-    private Date date;
+    private Date lastSaveDate;
     private static int counter = 1;
 
     public Note() {
 
     }
 
-    public Note(String title, String noteText, Date date) {
+    public Note(String title, String noteText) {
         this.title = title + " " + counter;
         this.noteText = noteText;
-        this.date = date;
         counter++;
     }
 
@@ -29,7 +28,22 @@ public class Note implements Serializable {
         return noteText;
     }
 
-    public Date getDate() {
-        return date;
+    public void setTitle(String title) {
+        this.title = title;
     }
+
+    public void setNoteText(String noteText) {
+        this.noteText = noteText;
+    }
+
+    @Override
+    public String toString() {
+        return "Note{" +
+                "title='" + title + '\'' +
+                ", noteText='" + noteText + '\'' +
+                ", lastSaveDate=" + lastSaveDate +
+                '}';
+    }
+
+
 }
