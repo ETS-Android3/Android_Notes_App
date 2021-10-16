@@ -5,6 +5,7 @@
     <item
         android:id="@+id/aboutOpt"
         android:icon="@android:drawable/ic_dialog_info"
+        android:onClick="openAboutActivity"
         android:title="@string/about"
         android:visible="true"
         app:showAsAction="ifRoom" />

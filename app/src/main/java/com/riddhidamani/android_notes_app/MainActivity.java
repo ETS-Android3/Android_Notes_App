@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -90,5 +91,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onBackPressed() {
         Toast.makeText(this, "The Back button was pressed - Bye!", Toast.LENGTH_LONG).show();
         super.onBackPressed();
+    }
+
+    // When info icon is clicked, About Activity is opened.
+    public boolean openAboutActivity(MenuItem item) {
+        Intent intent = new Intent(this, AboutActivity.class);
+        startActivity(intent);
+        return true;
     }
 }
