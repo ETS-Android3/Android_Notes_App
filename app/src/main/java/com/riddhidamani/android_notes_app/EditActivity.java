@@ -1,14 +1,18 @@
 package com.riddhidamani.android_notes_app;
 
+import androidx.activity.result.ActivityResult;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class EditActivity extends AppCompatActivity {
 
@@ -16,6 +20,9 @@ public class EditActivity extends AppCompatActivity {
     private Note note;
     private EditText noteTitleEdit;
     private EditText noteTextEdit;
+    private Note tempNote;
+    private boolean isNewNote;
+    private long tempDateTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +31,25 @@ public class EditActivity extends AppCompatActivity {
 
         noteTitleEdit = findViewById(R.id.noteTitleEdit);
         noteTextEdit = findViewById(R.id.noteTextEdit);
+
+        Intent intent = getIntent();
+        if(intent.hasExtra("EDIT_NOTE")) {
+            tempNote = (Note) intent.getSerializableExtra("EDIT_NOTE");
+            if(tempNote != null) {
+                String noteTitle = tempNote.getNoteTitle();
+                String noteText = tempNote.getNoteText();
+                tempDateTime = intent.getLongExtra("Time", 0);
+                noteTitleEdit.setText(noteTitle);
+                noteTextEdit.setText(noteText);
+            }
+            else {
+                noteTitleEdit.setText("Note not found!");
+            }
+            isNewNote = false;
+        }
+        else {
+            isNewNote = true;
+        }
     }
 
     @Override
@@ -37,6 +63,7 @@ public class EditActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.noteSaveIcon) {
             // code yet to be written
+            saveEditActivity();
             return true;
         }
         else {
@@ -47,29 +74,37 @@ public class EditActivity extends AppCompatActivity {
 
 
     // When + icon is clicked, Edit Activity is opened.
-    public boolean saveEditActivity(MenuItem item) {
+    public void saveEditActivity() {
 
         String noteTitle = noteTitleEdit.getText().toString();
         String noteText = noteTextEdit.getText().toString();
 
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("Note Title", noteTitle);
-        intent.putExtra("Note Text", noteText);
-        startActivity(intent);
-        return true;
-
-//        Intent intent = getIntent();
-//        if(intent.hasExtra("Note")) {
-//            note = (Note) intent.getSerializableExtra("Note");
-//            if(note != null) {
-//                noteTitleEdit.setText(note.getTitle().toString());
-//                noteTextEdit.setText(note.getNoteText().toString());
-//            }
-//            else {
-//                noteTitleEdit.setText("Note Title not found");
-//                noteTextEdit.setText("Note Text not found");
-//            }
-//        }
+        if(isNewNote) {
+            if(noteTitle.trim().isEmpty()) {
+                Toast.makeText(this, "Untitled activity was not saved", Toast.LENGTH_LONG).show();
+                EditActivity.super.onBackPressed();
+                return;
+            }
+            Note newNote = new Note(noteTitle, noteText);
+            Intent intent = new Intent();
+            intent.putExtra("NEW_NOTE", newNote);
+            setResult(01, intent);
+            finish();
+            super.onBackPressed();
+        }
+        else {
+            if(noteTitle.trim().isEmpty()) {
+                Toast.makeText(this, "Un-titled activity was not saved", Toast.LENGTH_LONG).show();
+                EditActivity.super.onBackPressed();
+                return;
+            }
+            tempNote.setNoteTitle(noteTitle);
+            tempNote.setNoteText(noteText);
+            tempNote.setLastSaveDate(tempDateTime);
+            Intent intent = new Intent();
+            intent.putExtra("EDIT_NOTE",  tempNote);
+            setResult(Activity.RESULT_OK, intent);
+            finish();
+        }
     }
-
 }

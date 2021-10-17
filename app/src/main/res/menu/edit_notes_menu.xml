@@ -5,7 +5,6 @@
     <item
         android:id="@+id/noteSaveIcon"
         android:icon="@android:drawable/ic_menu_save"
-        android:onClick="saveEditActivity"
         android:title="@string/save_note"
         app:showAsAction="ifRoom" />
 </menu>

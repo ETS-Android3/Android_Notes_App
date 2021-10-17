@@ -9,14 +9,15 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MyViewHolder extends RecyclerView.ViewHolder {
 
     TextView noteTitle;
-    TextView dateTime;
+    TextView lastSaveDate;
     TextView noteText;
 
     public MyViewHolder(@NonNull View itemView) {
         super(itemView);
         noteTitle = itemView.findViewById(R.id.noteTitle);
-        dateTime = itemView.findViewById(R.id.dateTime);
         noteText = itemView.findViewById(R.id.noteText);
+        lastSaveDate = itemView.findViewById(R.id.dateTime);
+
 
     }
 }

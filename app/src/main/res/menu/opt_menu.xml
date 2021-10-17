@@ -5,14 +5,12 @@
     <item
         android:id="@+id/aboutOpt"
         android:icon="@android:drawable/ic_dialog_info"
-        android:onClick="openAboutActivity"
         android:title="@string/about"
         android:visible="true"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/addNewNoteOpt"
         android:icon="@android:drawable/ic_input_add"
-        android:onClick="openEditActivity"
         android:title="@string/add_new_note"
         app:showAsAction="ifRoom" />
 </menu>

@@ -1,49 +1,69 @@
 package com.riddhidamani.android_notes_app;
 
+import android.util.JsonWriter;
+
+import androidx.annotation.NonNull;
+
+import java.io.IOException;
 import java.io.Serializable;
+import java.io.StringWriter;
 import java.util.Date;
 
-public class Note implements Serializable {
+public class Note implements Serializable, Comparable<Note> {
 
-    private String title;
+    private String noteTitle;
     private String noteText;
     private Date lastSaveDate;
     private static int counter = 1;
 
-    public Note() {
-
-    }
-
-    public Note(String title, String noteText) {
-        this.title = title + " " + counter;
+    public Note(String noteTitle, String noteText) {
+        this.noteTitle = noteTitle;
         this.noteText = noteText;
+        this.lastSaveDate = new Date();
         counter++;
     }
 
-    public String getTitle() {
-        return title;
+    public String getNoteTitle() {
+        return noteTitle;
     }
 
     public String getNoteText() {
         return noteText;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public Date getLastSaveDate() {
+        return lastSaveDate;
+    }
+
+    public void setNoteTitle(String noteTitle) {
+        this.noteTitle = noteTitle;
     }
 
     public void setNoteText(String noteText) {
         this.noteText = noteText;
     }
 
+    public void setLastSaveDate(long lastSaveDate) {
+        this.lastSaveDate = new Date(lastSaveDate);
+    }
+
+    @Override
+    public int compareTo(Note note) {
+        if(lastSaveDate.before(note.lastSaveDate)) {
+            return 1;
+        }
+        else if(lastSaveDate.after(note.lastSaveDate)) {
+            return -1;
+        }
+        return 0;
+    }
+
     @Override
     public String toString() {
         return "Note{" +
-                "title='" + title + '\'' +
+                "noteTitle='" + noteTitle + '\'' +
                 ", noteText='" + noteText + '\'' +
                 ", lastSaveDate=" + lastSaveDate +
                 '}';
     }
-
-
 }

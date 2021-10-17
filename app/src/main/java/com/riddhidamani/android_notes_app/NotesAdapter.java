@@ -40,10 +40,11 @@ public class NotesAdapter extends RecyclerView.Adapter<MyViewHolder> {
         Log.d(TAG, "onBindViewHolder: FILLING VIEW HOLDER Note " + position);
 
         Note note = noteList.get(position);
-
-        holder.noteTitle.setText(note.getTitle());
-        holder.dateTime.setText(new Date().toString());
+        holder.noteTitle.setText(note.getNoteTitle());
+        // Need to modify this based on the ... display on the Main Activity
         holder.noteText.setText(note.getNoteText());
+        holder.lastSaveDate.setText(note.getLastSaveDate().toString());
+
     }
 
     @Override

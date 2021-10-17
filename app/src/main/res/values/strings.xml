@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Android_Notes_App</string>
     <string name="about">About</string>
     <string name="add_new_note">Add New Note</string>
     <string name="note_title">Note Title</string>
@@ -9,4 +8,7 @@
     <string name="_2021_riddhi_damani">© 2021 Riddhi Damani</string>
     <string name="version_1_0">Version 1.0</string>
     <string name="save_note">save_note</string>
+    <string name="no_file">No JSON Note File Present</string>
+    <string name="file_name">NotesFile.json</string>
+    <string name="app_name">Multi Notes</string>
 </resources>
