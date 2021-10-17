@@ -18,6 +18,5 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         noteText = itemView.findViewById(R.id.noteText);
         lastSaveDate = itemView.findViewById(R.id.dateTime);
 
-
     }
 }

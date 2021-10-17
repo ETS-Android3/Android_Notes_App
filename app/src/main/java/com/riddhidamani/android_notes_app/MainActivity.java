@@ -3,6 +3,7 @@ package com.riddhidamani.android_notes_app;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         readJSONFile();
+
         String app_name = getResources().getString(R.string.app_name);
         setTitle( app_name + " (" + notesList.size() + ")");
         setContentView(R.layout.activity_main);
@@ -95,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         index = recyclerView.getChildAdapterPosition(view);
         note = notesList.get(index);
-        //openEditActivity1(note);
+        openEditActivityExist(note);
         //Toast.makeText(view.getContext(), "onClick" + note.toString(), Toast.LENGTH_LONG).show();
     }
 
@@ -108,11 +110,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         builder.setMessage("Delete Note '" + note.getNoteTitle() + "'?");
         builder.setPositiveButton("Yes", (dialog, id) -> {
             notesList.remove(position);
-            String app_name = "Android Notes";
+            String app_name = getResources().getString(R.string.app_name);
             setTitle( app_name + " (" + notesList.size() + ")");
             notesAdapter.notifyDataSetChanged();
         });
-        builder.setNegativeButton("No", (dialog, id) -> finish());
+        builder.setNegativeButton("No", (dialog, id) -> {
+            //super.onBackPressed();
+            return;
+        });
         AlertDialog dialog = builder.create();
         dialog.show();
         return false;
@@ -126,12 +131,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     // When + icon is clicked, Edit Activity is opened.
-//    public void openEditActivity1(Note note) {
-//        Intent intent = new Intent(this, EditActivity.class);
-//        intent.putExtra("EDIT_NOTE", note);
-//        startActivity(intent);
-//        activityResultLauncher.launch(intent);
-//    }
+    public void openEditActivityExist(Note note) {
+        Intent intent = new Intent(this, EditActivity.class);
+        intent.putExtra("EDIT_NOTE", note);
+        activityResultLauncher.launch(intent);
+    }
 
     // When info icon is clicked, About Activity is opened.
     public void openAboutActivity(MenuItem item) {
@@ -156,14 +160,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     notesList.add(note);
                     Collections.sort(notesList);
                     notesAdapter.notifyDataSetChanged();
-                    String app_name = "Android Notes";
+                    String app_name = getResources().getString(R.string.app_name);
                     setTitle( app_name + " (" + notesList.size() + ")");
                 }
             }
             Log.d(TAG, "onActivityResult: Return from Edit Activity: Add note");
         }
+        else if(result.getResultCode() == 02) {
+            Intent data = result.getData();
+            if(data != null) {
+                note = (Note) data.getSerializableExtra("EDIT_NOTE");
+                if(note != null) {
+                    notesList.get(index).setNoteTitle(note.getNoteTitle());
+                    notesList.get(index).setNoteText(note.getNoteText());
+                    notesList.get(index).setLastSaveDate(System.currentTimeMillis());
+                    Collections.sort(notesList);
+                    notesAdapter.notifyDataSetChanged();
+                }
+            }
+            Log.d(TAG, "handleResult: Returning from EditActivity: Edited Existing Note!");
+        }
         else {
-            Toast.makeText(this, "EDIT ACTIVITY result not OK!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Unexpected Request Code Received!!", Toast.LENGTH_SHORT).show();
         }
     }
 

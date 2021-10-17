@@ -2,9 +2,11 @@ package com.riddhidamani.android_notes_app;
 
 import androidx.activity.result.ActivityResult;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -78,7 +80,7 @@ public class EditActivity extends AppCompatActivity {
 
         String noteTitle = noteTitleEdit.getText().toString();
         String noteText = noteTextEdit.getText().toString();
-
+        // Add New Note
         if(isNewNote) {
             if(noteTitle.trim().isEmpty()) {
                 Toast.makeText(this, "Untitled activity was not saved", Toast.LENGTH_LONG).show();
@@ -92,6 +94,7 @@ public class EditActivity extends AppCompatActivity {
             finish();
             super.onBackPressed();
         }
+        // Edit Existing Note
         else {
             if(noteTitle.trim().isEmpty()) {
                 Toast.makeText(this, "Un-titled activity was not saved", Toast.LENGTH_LONG).show();
@@ -103,8 +106,29 @@ public class EditActivity extends AppCompatActivity {
             tempNote.setLastSaveDate(tempDateTime);
             Intent intent = new Intent();
             intent.putExtra("EDIT_NOTE",  tempNote);
-            setResult(Activity.RESULT_OK, intent);
+            setResult(02, intent);
             finish();
         }
+    }
+
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Save Note");
+        builder.setMessage("Your note is not saved! Save Note?");
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                saveEditActivity();
+            }
+        });
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                EditActivity.super.onBackPressed();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

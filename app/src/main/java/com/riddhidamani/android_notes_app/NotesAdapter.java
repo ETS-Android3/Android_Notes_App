@@ -37,14 +37,24 @@ public class NotesAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Log.d(TAG, "onBindViewHolder: FILLING VIEW HOLDER Note " + position);
+        Log.d(TAG, "onBindViewHolder: Filling ViewHolder Notes: " + position);
 
         Note note = noteList.get(position);
-        holder.noteTitle.setText(note.getNoteTitle());
-        // Need to modify this based on the ... display on the Main Activity
-        holder.noteText.setText(note.getNoteText());
+        // Substring - NoteTitle limit to 80 Characters on MainActivity Display list
+        String noteTitleFull = note.getNoteTitle();
+        if(noteTitleFull.length() > 80) {
+            noteTitleFull = noteTitleFull.substring(0, 80);
+            noteTitleFull = noteTitleFull + "...";
+        }
+        holder.noteTitle.setText(noteTitleFull);
+        // Substring - NoteText limit to 80 Characters on MainActivity Display list
+        String noteTextFull = note.getNoteText();
+        if(noteTextFull.length() > 80) {
+            noteTextFull = noteTextFull.substring(0, 80);
+            noteTextFull = noteTextFull + "...";
+        }
+        holder.noteText.setText(noteTextFull);
         holder.lastSaveDate.setText(note.getLastSaveDate().toString());
-
     }
 
     @Override

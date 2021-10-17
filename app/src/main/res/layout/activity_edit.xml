@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E66E6D "
     tools:context=".EditActivity">
 
     <EditText
@@ -12,7 +13,7 @@
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:background="#EAE6E6"
+        android:background="#F8D4CE"
         android:hint="@string/note_title"
         android:includeFontPadding="true"
         android:inputType="text"
@@ -31,7 +32,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
-        android:background="#EAE6E6"
+        android:background="#F8D4CE"
         android:ems="10"
         android:gravity="start|top"
         android:hint="@string/note_text"

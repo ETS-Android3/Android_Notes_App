@@ -10,5 +10,5 @@
     <string name="save_note">save_note</string>
     <string name="no_file">No JSON Note File Present</string>
     <string name="file_name">NotesFile.json</string>
-    <string name="app_name">Multi Notes</string>
+    <string name="app_name">Android Notes</string>
 </resources>
