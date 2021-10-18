@@ -11,4 +11,8 @@
     <string name="no_file">No JSON Note File Present</string>
     <string name="file_name">NotesFile.json</string>
     <string name="app_name">Android Notes</string>
+    <string name="no_changes_made">No Changes Made</string>
+    <string name="delete_note">Delete Note</string>
+    <string name="save_note_msg">Note Saved!</string>
+    <string name="bck_btn_bye_msg">The Back button was pressed - Bye!</string>
 </resources>

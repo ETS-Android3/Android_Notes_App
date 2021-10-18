@@ -1,18 +1,14 @@
 package com.riddhidamani.android_notes_app;
 
-import androidx.activity.result.ActivityResult;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -22,8 +18,11 @@ public class EditActivity extends AppCompatActivity {
     private EditText noteTitleEdit;
     private EditText noteTextEdit;
     private Note tempNote;
-    private boolean isNewNote;
+    private boolean isNewNote = false;
+    private boolean flag = false;
     private long tempDateTime;
+    private String oldNoteTitle;
+    private String oldNoteText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +36,11 @@ public class EditActivity extends AppCompatActivity {
         if(intent.hasExtra("EDIT_NOTE")) {
             tempNote = (Note) intent.getSerializableExtra("EDIT_NOTE");
             if(tempNote != null) {
-                String noteTitle = tempNote.getNoteTitle();
-                String noteText = tempNote.getNoteText();
+                oldNoteTitle = tempNote.getNoteTitle();
+                oldNoteText = tempNote.getNoteText();
                 tempDateTime = intent.getLongExtra("Time", 0);
-                noteTitleEdit.setText(noteTitle);
-                noteTextEdit.setText(noteText);
+                noteTitleEdit.setText(oldNoteTitle);
+                noteTextEdit.setText(oldNoteText);
             }
             else {
                 noteTitleEdit.setText("Note not found!");
@@ -63,7 +62,6 @@ public class EditActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.noteSaveIcon) {
-            // code yet to be written
             saveEditActivity();
             return true;
         }
@@ -73,12 +71,12 @@ public class EditActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
     // When + icon is clicked, Edit Activity is opened.
     public void saveEditActivity() {
 
         String noteTitle = noteTitleEdit.getText().toString();
         String noteText = noteTextEdit.getText().toString();
+
         // Add New Note
         if(isNewNote) {
             if(noteTitle.trim().isEmpty()) {
@@ -90,7 +88,6 @@ public class EditActivity extends AppCompatActivity {
             intent.putExtra("NEW_NOTE", newNote);
             setResult(01, intent);
             finish();
-            super.onBackPressed();
         }
         // Edit Existing Note
         else {
@@ -102,9 +99,34 @@ public class EditActivity extends AppCompatActivity {
             tempNote.setNoteText(noteText);
             tempNote.setLastSaveDate(tempDateTime);
             Intent intent = new Intent();
-            intent.putExtra("EDIT_NOTE",  tempNote);
+            intent.putExtra("EDIT_NOTE", tempNote);
             setResult(02, intent);
             finish();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        String noteTitle = noteTitleEdit.getText().toString();
+        String noteText = noteTextEdit.getText().toString();
+
+        if(isNewNote && (!noteTitle.trim().isEmpty())) {
+            showSaveDialog();
+        }
+        else if(isNewNote && (!noteText.trim().isEmpty())) {
+            showSaveDialog();
+        }
+        else if(!(noteTitle.equals(tempNote.getNoteTitle()))) {
+            showSaveDialog();
+        }
+        else if(!(noteText.equals(tempNote.getNoteText()))) {
+            showSaveDialog();
+        }
+        else {
+            Toast.makeText(this, getResources().getString(R.string.no_changes_made), Toast.LENGTH_SHORT).show();
+            super.onBackPressed();
+            return;
         }
     }
 
@@ -124,12 +146,11 @@ public class EditActivity extends AppCompatActivity {
                 return;
             }
         });
-
         AlertDialog dialog = builder.create();
         dialog.show();
     }
 
-    public void onBackPressed() {
+    public void showSaveDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Save Note");
         builder.setMessage("Your note is not saved! Save Note?");

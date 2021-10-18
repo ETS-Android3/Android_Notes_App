@@ -3,16 +3,13 @@ package com.riddhidamani.android_notes_app;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.JsonWriter;
 import android.util.Log;
@@ -20,10 +17,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -31,10 +26,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -78,17 +71,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.aboutOpt) {
             // Invoke About Activity
-            openAboutActivity(item);
+            openAboutActivity();
             return true;
         }
         else if(item.getItemId() == R.id.addNewNoteOpt) {
             // Invoke Add New Note Activity
             openEditActivity();
-
             return true;
         }
         else {
-            Log.d(TAG, "onOptionsItemSelected: Unknown Item" + item.getTitle());
+            Log.d(TAG, "onOptionsItemSelected: Unknown Item: " + item.getTitle());
         }
         return super.onOptionsItemSelected(item);
     }
@@ -106,8 +98,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int position = recyclerView.getChildAdapterPosition(view);
         Note note = notesList.get(position);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Delete Note");
-        builder.setMessage("Delete Note '" + note.getNoteTitle() + "'?");
+        builder.setTitle(getResources().getString(R.string.delete_note));
+        builder.setMessage(getResources().getString(R.string.delete_note)+ " '" + note.getNoteTitle() + "'?");
         builder.setPositiveButton("Yes", (dialog, id) -> {
             notesList.remove(position);
             String app_name = getResources().getString(R.string.app_name);
@@ -139,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     // When info icon is clicked, About Activity is opened.
-    public void openAboutActivity(MenuItem item) {
+    public void openAboutActivity() {
         Intent intent = new Intent(this, AboutActivity.class);
         startActivity(intent);
     }
@@ -177,15 +169,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.d(TAG, "handleResult: Returning from EditActivity: Edited Existing Note!");
         }
         else {
-            Toast.makeText(this, "Unexpected Request Code Received!!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Unexpected Request Code Received!!", Toast.LENGTH_SHORT).show();
         }
     }
-
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        writeDataToJSON();
-//    }
 
 //    @Override
 //    protected void onResume() {
@@ -229,7 +215,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.d(TAG, "writeDataToJSON: Saving Notes Data into the JSON File");
         try {
             // Edit strings.xml and remove static filename
-            FileOutputStream fos = getApplicationContext().openFileOutput("NotesFile.json", Context.MODE_PRIVATE);
+            FileOutputStream fos = getApplicationContext().openFileOutput(getResources().getString(R.string.file_name), Context.MODE_PRIVATE);
             JsonWriter jsonWriter = new JsonWriter(new OutputStreamWriter(fos, StandardCharsets.UTF_8));
             jsonWriter.setIndent("  ");
             jsonWriter.beginArray();
@@ -243,15 +229,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             jsonWriter.endArray();
             jsonWriter.close();
             Log.d(TAG, "writeDataToJSON: JSON:\n" + notesList.toString());
-            Toast.makeText(this, "Note Saved!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.save_note_msg), Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+//    @Override
+//    protected void onPause() {
+//        writeDataToJSON();
+//        super.onPause();
+//    }
+
     @Override
     public void onBackPressed() {
-        Toast.makeText(this, "The Back button was pressed - Bye!", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getResources().getString(R.string.bck_btn_bye_msg), Toast.LENGTH_LONG).show();
         super.onBackPressed();
     }
 }

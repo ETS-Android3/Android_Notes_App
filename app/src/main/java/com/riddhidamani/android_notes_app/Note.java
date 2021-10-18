@@ -1,18 +1,13 @@
 package com.riddhidamani.android_notes_app;
 
-import android.util.JsonWriter;
 
-import androidx.annotation.NonNull;
-
-import java.io.IOException;
 import java.io.Serializable;
-import java.io.StringWriter;
 import java.util.Date;
 
 public class Note implements Serializable, Comparable<Note> {
 
-    private String noteTitle;
-    private String noteText;
+    private String noteTitle = "";
+    private String noteText = "";
     private Date lastSaveDate;
     private static int counter = 1;
 
