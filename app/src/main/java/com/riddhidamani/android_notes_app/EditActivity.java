@@ -19,7 +19,6 @@ import android.widget.Toast;
 public class EditActivity extends AppCompatActivity {
 
     private static final String TAG = "EditActivity";
-    private Note note;
     private EditText noteTitleEdit;
     private EditText noteTextEdit;
     private Note tempNote;
@@ -83,8 +82,7 @@ public class EditActivity extends AppCompatActivity {
         // Add New Note
         if(isNewNote) {
             if(noteTitle.trim().isEmpty()) {
-                Toast.makeText(this, "Untitled activity was not saved", Toast.LENGTH_LONG).show();
-                EditActivity.super.onBackPressed();
+                showNoTitleDialog();
                 return;
             }
             Note newNote = new Note(noteTitle, noteText);
@@ -97,8 +95,7 @@ public class EditActivity extends AppCompatActivity {
         // Edit Existing Note
         else {
             if(noteTitle.trim().isEmpty()) {
-                Toast.makeText(this, "Un-titled activity was not saved", Toast.LENGTH_LONG).show();
-                EditActivity.super.onBackPressed();
+                showNoTitleDialog();
                 return;
             }
             tempNote.setNoteTitle(noteTitle);
@@ -109,6 +106,27 @@ public class EditActivity extends AppCompatActivity {
             setResult(02, intent);
             finish();
         }
+    }
+
+    public void showNoTitleDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("No Title");
+        builder.setMessage("Note cannot be saved without title! Do you want to exit without saving?");
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                EditActivity.super.onBackPressed();
+            }
+        });
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                return;
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     public void onBackPressed() {

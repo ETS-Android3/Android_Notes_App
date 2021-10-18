@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String app_name = getResources().getString(R.string.app_name);
             setTitle( app_name + " (" + notesList.size() + ")");
             notesAdapter.notifyDataSetChanged();
+            writeDataToJSON();
         });
         builder.setNegativeButton("No", (dialog, id) -> {
             //super.onBackPressed();
@@ -143,12 +144,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(intent);
     }
 
-    @Override
-    public void onBackPressed() {
-        //Toast.makeText(this, "The Back button was pressed - Bye!", Toast.LENGTH_LONG).show();
-        super.onBackPressed();
-    }
-
     public void handleResult(ActivityResult result) {
         Log.d(TAG, "On handleResult Method: ");
         if(result.getResultCode() == 01) {
@@ -162,6 +157,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     notesAdapter.notifyDataSetChanged();
                     String app_name = getResources().getString(R.string.app_name);
                     setTitle( app_name + " (" + notesList.size() + ")");
+                    writeDataToJSON();
                 }
             }
             Log.d(TAG, "onActivityResult: Return from Edit Activity: Add note");
@@ -185,11 +181,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        writeDataToJSON();
-    }
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        writeDataToJSON();
+//    }
 
 //    @Override
 //    protected void onResume() {
@@ -232,6 +228,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void writeDataToJSON()  {
         Log.d(TAG, "writeDataToJSON: Saving Notes Data into the JSON File");
         try {
+            // Edit strings.xml and remove static filename
             FileOutputStream fos = getApplicationContext().openFileOutput("NotesFile.json", Context.MODE_PRIVATE);
             JsonWriter jsonWriter = new JsonWriter(new OutputStreamWriter(fos, StandardCharsets.UTF_8));
             jsonWriter.setIndent("  ");
@@ -250,5 +247,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this, "The Back button was pressed - Bye!", Toast.LENGTH_LONG).show();
+        super.onBackPressed();
     }
 }

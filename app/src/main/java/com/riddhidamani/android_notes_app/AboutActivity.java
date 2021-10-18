@@ -17,7 +17,7 @@ public class AboutActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-//        Toast.makeText(this, "The Back button was pressed - Going to Main Activity!", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "The Back button was pressed - Going to Main Activity!", Toast.LENGTH_LONG).show();
         super.onBackPressed();
     }
 }
