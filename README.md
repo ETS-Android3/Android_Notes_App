@@ -30,7 +30,7 @@ Emulator Devices used for testing:
 ## Screenshots:
 
 1. Portrait Orientation (Primary)
-<img src="./app/src/main/res/pic1_about.png" width="300" height="500"/>
+<img src="./app/src/main/res/pic1_about.png" width="400" height="500"/>
     
 2. Landscape Orientation
 
