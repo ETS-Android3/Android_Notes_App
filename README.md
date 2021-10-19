@@ -11,14 +11,14 @@ JSON file loading happens in the onCreate(). Saving happens whenever a new note 
 A Note class (with title, note text, and last save date) is created to represent each individual note in the application.
 
 The application is made up of 3 activities. These are described below:
-1) Main Activity
+1) Main Activity :
    Notes are displayed in a list, in time order (latest-update-first, oldest update- last). The note list is 
    implemented using the RecyclerView. The Main Activity allows the user to create a new note via an Add options
    menu item. It also has an Info options-menu item. 
-2) Edit Activity
+2) Edit Activity :
    The Edit Activity contains editable fields for the note title and note text. The last-save time is NOT displayed here 
    and is never user-editable – it is automatically generated and saved when the note is saved.
-3) About Activity
+3) About Activity :
    The About Activity contains a full-screen image background (designed by me using Canva). Over the background image, key 
    information on the application is displayed. This information includes the application title, a copyright date and 
    my name, and the version number (1.0). There is no functionality present on this activity. The only action a user 
@@ -27,9 +27,13 @@ The application is made up of 3 activities. These are described below:
 Emulator Devices used for testing: 
     Emulator used: Nexus 5X | Resolution: 1080 x 1920 | Details: With Playstore
 
-# Screenshots:
-    1. Portrait Orientation (Primary)
-       ![img.png](img.png) ![img_1.png](img_1.png) ![img_2.png](img_2.png) ![img_3.png](img_3.png) 
-       ![img_4.png](img_4.png) ![img_5.png](img_5.png)
-    2. Landscape Orientation  
-       ![img_6.png](img_6.png) ![img_7.png](img_7.png) ![img_8.png](img_8.png)
+## Screenshots:
+
+1. Portrait Orientation (Primary) 
+
+![img.png](img.png) ![img_1.png](img_1.png) ![img_2.png](img_2.png) 
+![img_3.png](img_3.png) ![img_4.png](img_4.png) ![img_5.png](img_5.png)
+    
+2. Landscape Orientation
+
+![img_6.png](img_6.png) ![img_7.png](img_7.png) ![img_8.png](img_8.png)
