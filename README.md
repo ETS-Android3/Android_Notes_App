@@ -31,9 +31,8 @@ Emulator Devices used for testing:
 
 1. Portrait Orientation (Primary) 
 
-![img.png](img.png) ![img_1.png](img_1.png) ![img_2.png](img_2.png) 
-![img_3.png](img_3.png) ![img_4.png](img_4.png) ![img_5.png](img_5.png)
+![P1](/app/src/main/res/pic1_about.png)
     
 2. Landscape Orientation
 
-![img_6.png](img_6.png) ![img_7.png](img_7.png) ![img_8.png](img_8.png)
+![L1](/app/src/main/res/landscape_about.png)
