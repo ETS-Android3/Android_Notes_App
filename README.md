@@ -30,6 +30,7 @@ Emulator Devices used for testing:
 ## Screenshots:
 
 1. Portrait Orientation (Primary)
+
 <img src="./app/src/main/res/pic1_about.png" width="375" height="500"/><img src="./app/src/main/res/MainActivity.png" width="375" height="500"/>
 <img src="./app/src/main/res/editPic1.png" width="375" height="500"/><img src="./app/src/main/res/editpic2.png" width="375" height="500"/>
 <img src="./app/src/main/res/delete_dialog.png" width="375" height="500"/><img src="./app/src/main/res/delete_toast.png" width="375" height="500"/>
