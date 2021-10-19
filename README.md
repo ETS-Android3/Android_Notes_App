@@ -29,9 +29,8 @@ Emulator Devices used for testing:
 
 ## Screenshots:
 
-1. Portrait Orientation (Primary) 
-
-![P1](/app/src/main/res/pic1_about.png)
+1. Portrait Orientation (Primary)
+<img src="./app/src/main/res/pic1_about.png" width="100" />
     
 2. Landscape Orientation
 
