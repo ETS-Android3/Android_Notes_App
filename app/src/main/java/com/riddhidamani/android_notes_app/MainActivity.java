@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Loading of the JSON File initiated in the onCreate method.
         readJSONFile();
 
         String app_name = getResources().getString(R.string.app_name);
@@ -105,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String app_name = getResources().getString(R.string.app_name);
             setTitle( app_name + " (" + notesList.size() + ")");
             notesAdapter.notifyDataSetChanged();
+            Toast.makeText(this, "Note '" + note.getNoteTitle() + "' Deleted!", Toast.LENGTH_SHORT).show();
             writeDataToJSON();
         });
         builder.setNegativeButton("No", (dialog, id) -> {
@@ -133,7 +135,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // When info icon is clicked, About Activity is opened.
     public void openAboutActivity() {
         Intent intent = new Intent(this, AboutActivity.class);
-        startActivity(intent);
+        activityResultLauncher.launch(intent);
+        //startActivity(intent);
     }
 
     public void handleResult(ActivityResult result) {
@@ -161,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(note != null) {
                     notesList.get(index).setNoteTitle(note.getNoteTitle());
                     notesList.get(index).setNoteText(note.getNoteText());
-                    notesList.get(index).setLastSaveDate(System.currentTimeMillis());
+                    notesList.get(index).setLastUpdateTime(System.currentTimeMillis());
                     Collections.sort(notesList);
                     notesAdapter.notifyDataSetChanged();
                 }
@@ -172,13 +175,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //Toast.makeText(this, "Unexpected Request Code Received!!", Toast.LENGTH_SHORT).show();
         }
     }
-
-//    @Override
-//    protected void onResume() {
-//        notesList.clear();
-//        notesList.addAll(readJSONFile());
-//        super.onResume();
-//    }
 
     private void readJSONFile() {
         Log.d(TAG, "loadFile: Loading JSON File");
@@ -199,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String noteText = jsonObject.getString("note_text");
                 long dateMS = jsonObject.getLong("editDate");
                 Note note = new Note(noteTitle, noteText);
-                note.setLastSaveDate(dateMS);
+                note.setLastUpdateTime(dateMS);
                 notesList.add(note);
             }
         }
@@ -223,22 +219,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 jsonWriter.beginObject();
                 jsonWriter.name("note_title").value(note.getNoteTitle());
                 jsonWriter.name("note_text").value(note.getNoteText());
-                jsonWriter.name("editDate").value(note.getLastSaveDate().getTime());
+                jsonWriter.name("editDate").value(note.getLastUpdateTime().getTime());
                 jsonWriter.endObject();
             }
             jsonWriter.endArray();
             jsonWriter.close();
             Log.d(TAG, "writeDataToJSON: JSON:\n" + notesList.toString());
-            Toast.makeText(this, getResources().getString(R.string.save_note_msg), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, getResources().getString(R.string.save_note_msg), Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-//    @Override
-//    protected void onPause() {
-//        writeDataToJSON();
-//        super.onPause();
+    @Override
+    protected void onPause() {
+        writeDataToJSON();
+        super.onPause();
+    }
+
+    //    @Override
+//    protected void onResume() {
+//        notesList.clear();
+//        notesList.addAll(readJSONFile());
+//        super.onResume();
 //    }
 
     @Override

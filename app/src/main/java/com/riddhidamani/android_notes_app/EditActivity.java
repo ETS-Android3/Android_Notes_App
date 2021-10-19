@@ -3,7 +3,6 @@ package com.riddhidamani.android_notes_app;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,7 +18,6 @@ public class EditActivity extends AppCompatActivity {
     private EditText noteTextEdit;
     private Note tempNote;
     private boolean isNewNote = false;
-    private boolean flag = false;
     private long tempDateTime;
     private String oldNoteTitle;
     private String oldNoteText;
@@ -97,7 +95,7 @@ public class EditActivity extends AppCompatActivity {
             }
             tempNote.setNoteTitle(noteTitle);
             tempNote.setNoteText(noteText);
-            tempNote.setLastSaveDate(tempDateTime);
+            tempNote.setLastUpdateTime(tempDateTime);
             Intent intent = new Intent();
             intent.putExtra("EDIT_NOTE", tempNote);
             setResult(02, intent);
@@ -134,38 +132,21 @@ public class EditActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("No Title");
         builder.setMessage("Note cannot be saved without title! Do you want to exit without saving?");
-        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                EditActivity.super.onBackPressed();
-            }
-        });
-        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+        builder.setPositiveButton("YES", (dialogInterface, i) -> EditActivity.super.onBackPressed());
+        builder.setNegativeButton("NO", (dialogInterface, i) -> {
                 return;
-            }
         });
         AlertDialog dialog = builder.create();
         dialog.show();
     }
 
     public void showSaveDialog() {
+        String noteTitle = noteTitleEdit.getText().toString();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Save Note");
-        builder.setMessage("Your note is not saved! Save Note?");
-        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                saveEditActivity();
-            }
-        });
-        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                EditActivity.super.onBackPressed();
-            }
-        });
+        builder.setMessage("Your note is not saved! Save Note '" + noteTitle + "' ?");
+        builder.setPositiveButton("YES", (dialogInterface, i) -> saveEditActivity());
+        builder.setNegativeButton("NO", (dialogInterface, i) -> EditActivity.super.onBackPressed());
 
         AlertDialog dialog = builder.create();
         dialog.show();

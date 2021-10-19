@@ -54,7 +54,7 @@ public class NotesAdapter extends RecyclerView.Adapter<MyViewHolder> {
             noteTextFull = noteTextFull + "...";
         }
         holder.noteText.setText(noteTextFull);
-        holder.lastSaveDate.setText(note.getLastSaveDate().toString());
+        holder.lastSaveDate.setText(note.getLastUpdateTime().toString());
     }
 
     @Override

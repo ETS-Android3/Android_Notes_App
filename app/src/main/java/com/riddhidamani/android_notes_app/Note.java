@@ -4,17 +4,18 @@ package com.riddhidamani.android_notes_app;
 import java.io.Serializable;
 import java.util.Date;
 
+// Separate Note class used to represent note data
 public class Note implements Serializable, Comparable<Note> {
 
     private String noteTitle = "";
     private String noteText = "";
-    private Date lastSaveDate;
+    private Date lastUpdateTime;
     private static int counter = 1;
 
     public Note(String noteTitle, String noteText) {
         this.noteTitle = noteTitle;
         this.noteText = noteText;
-        this.lastSaveDate = new Date();
+        this.lastUpdateTime = new Date();
         counter++;
     }
 
@@ -26,8 +27,8 @@ public class Note implements Serializable, Comparable<Note> {
         return noteText;
     }
 
-    public Date getLastSaveDate() {
-        return lastSaveDate;
+    public Date getLastUpdateTime() {
+        return lastUpdateTime;
     }
 
     public void setNoteTitle(String noteTitle) {
@@ -38,16 +39,16 @@ public class Note implements Serializable, Comparable<Note> {
         this.noteText = noteText;
     }
 
-    public void setLastSaveDate(long lastSaveDate) {
-        this.lastSaveDate = new Date(lastSaveDate);
+    public void setLastUpdateTime(long lastUpdateTime) {
+        this.lastUpdateTime = new Date(lastUpdateTime);
     }
 
     @Override
     public int compareTo(Note note) {
-        if(lastSaveDate.before(note.lastSaveDate)) {
+        if(lastUpdateTime.before(note.lastUpdateTime)) {
             return 1;
         }
-        else if(lastSaveDate.after(note.lastSaveDate)) {
+        else if(lastUpdateTime.after(note.lastUpdateTime)) {
             return -1;
         }
         return 0;
@@ -58,7 +59,7 @@ public class Note implements Serializable, Comparable<Note> {
         return "Note{" +
                 "noteTitle='" + noteTitle + '\'' +
                 ", noteText='" + noteText + '\'' +
-                ", lastSaveDate=" + lastSaveDate +
+                ", lastSaveDate=" + lastUpdateTime +
                 '}';
     }
 }
