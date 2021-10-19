@@ -6,8 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.Date;
 import java.util.List;
 
 public class NotesAdapter extends RecyclerView.Adapter<MyViewHolder> {
@@ -54,7 +52,7 @@ public class NotesAdapter extends RecyclerView.Adapter<MyViewHolder> {
             noteTextFull = noteTextFull + "...";
         }
         holder.noteText.setText(noteTextFull);
-        holder.lastSaveDate.setText(note.getLastUpdateTime().toString());
+        holder.lastUpdateTime.setText(note.getLastUpdateTime().toString());
     }
 
     @Override

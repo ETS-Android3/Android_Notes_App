@@ -30,8 +30,14 @@ Emulator Devices used for testing:
 ## Screenshots:
 
 1. Portrait Orientation (Primary)
-<img src="./app/src/main/res/pic1_about.png" width="400" height="500"/>
+<img src="./app/src/main/res/pic1_about.png" width="375" height="500"/>
+<img src="./app/src/main/res/MainActivity.png" width="375" height="500"/>
+<img src="./app/src/main/res/editPic1.png" width="375" height="500"/>
+<img src="./app/src/main/res/editPic2.png" width="375" height="500"/>
+<img src="./app/src/main/res/delete_dialog.png" width="375" height="500"/>
+<img src="./app/src/main/res/delete_toast.png" width="375" height="500"/>
     
 2. Landscape Orientation
-
-![L1](/app/src/main/res/landscape_about.png)
+<img src="./app/src/main/res/landscape_about.png" width="650" height="400"/>
+<img src="./app/src/main/res/landscape_pic1.png" width="650" height="400"/>
+<img src="./app/src/main/res/editPic1_landscape.png" width="650" height="400"/>

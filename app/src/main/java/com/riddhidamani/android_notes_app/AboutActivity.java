@@ -3,13 +3,15 @@ package com.riddhidamani.android_notes_app;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
+import java.util.Objects;
+
 
 public class AboutActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
         setContentView(R.layout.activity_about);
     }
 

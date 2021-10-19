@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 String noteTitle = jsonObject.getString("note_title");
                 String noteText = jsonObject.getString("note_text");
-                long dateMS = jsonObject.getLong("editDate");
+                long dateMS = jsonObject.getLong("lastUpdateDT");
                 Note note = new Note(noteTitle, noteText);
                 note.setLastUpdateTime(dateMS);
                 notesList.add(note);
@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 jsonWriter.beginObject();
                 jsonWriter.name("note_title").value(note.getNoteTitle());
                 jsonWriter.name("note_text").value(note.getNoteText());
-                jsonWriter.name("editDate").value(note.getLastUpdateTime().getTime());
+                jsonWriter.name("lastUpdateDT").value(note.getLastUpdateTime().getTime());
                 jsonWriter.endObject();
             }
             jsonWriter.endArray();
