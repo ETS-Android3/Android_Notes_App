@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+// Edit Activity Class
 public class EditActivity extends AppCompatActivity {
 
     private static final String TAG = "EditActivity";
@@ -27,8 +28,8 @@ public class EditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
-        noteTitleEdit = findViewById(R.id.noteTitleEdit);
-        noteTextEdit = findViewById(R.id.noteTextEdit);
+        noteTitleEdit = (EditText) findViewById(R.id.noteTitleEdit);
+        noteTextEdit = (EditText) findViewById(R.id.noteTextEdit);
 
         Intent intent = getIntent();
         if(intent.hasExtra("EDIT_NOTE")) {
@@ -41,7 +42,7 @@ public class EditActivity extends AppCompatActivity {
                 noteTextEdit.setText(oldNoteText);
             }
             else {
-                noteTitleEdit.setText("Note not found!");
+                noteTitleEdit.setText(R.string.note_not_found);
             }
             isNewNote = false;
         }
@@ -84,7 +85,7 @@ public class EditActivity extends AppCompatActivity {
             Note newNote = new Note(noteTitle, noteText);
             Intent intent = new Intent();
             intent.putExtra("NEW_NOTE", newNote);
-            setResult(01, intent);
+            setResult(1, intent);
             finish();
         }
         // Edit Existing Note
@@ -98,7 +99,7 @@ public class EditActivity extends AppCompatActivity {
             tempNote.setLastUpdateTime(tempDateTime);
             Intent intent = new Intent();
             intent.putExtra("EDIT_NOTE", tempNote);
-            setResult(02, intent);
+            setResult(2, intent);
             finish();
         }
     }
@@ -115,25 +116,25 @@ public class EditActivity extends AppCompatActivity {
         else if(isNewNote && (!noteText.trim().isEmpty())) {
             showSaveDialog();
         }
-        else if(!(noteTitle.equals(tempNote.getNoteTitle()))) {
+        else if(!(tempNote == null) && !(noteTitle.equals(tempNote.getNoteTitle()))) {
             showSaveDialog();
         }
-        else if(!(noteText.equals(tempNote.getNoteText()))) {
+        else if(!(tempNote == null) && !(noteText.equals(tempNote.getNoteText()))) {
             showSaveDialog();
         }
         else {
             Toast.makeText(this, getResources().getString(R.string.no_changes_made), Toast.LENGTH_SHORT).show();
-            super.onBackPressed();
+            EditActivity.super.onBackPressed();
             return;
         }
     }
 
     public void showNoTitleDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("No Title");
-        builder.setMessage("Note cannot be saved without title! Do you want to exit without saving?");
-        builder.setPositiveButton("YES", (dialogInterface, i) -> EditActivity.super.onBackPressed());
-        builder.setNegativeButton("NO", (dialogInterface, i) -> {
+        builder.setTitle(R.string.no_title_heading);
+        builder.setMessage(R.string.no_title_warn_msg);
+        builder.setPositiveButton(R.string.yes_button, (dialogInterface, i) -> EditActivity.super.onBackPressed());
+        builder.setNegativeButton(R.string.no_button, (dialogInterface, i) -> {
                 return;
         });
         AlertDialog dialog = builder.create();
@@ -143,10 +144,10 @@ public class EditActivity extends AppCompatActivity {
     public void showSaveDialog() {
         String noteTitle = noteTitleEdit.getText().toString();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Save Note");
-        builder.setMessage("Your note is not saved! Save Note '" + noteTitle + "' ?");
-        builder.setPositiveButton("YES", (dialogInterface, i) -> saveEditActivity());
-        builder.setNegativeButton("NO", (dialogInterface, i) -> EditActivity.super.onBackPressed());
+        builder.setTitle(R.string.save_note_title);
+        builder.setMessage(getString(R.string.save_note_dialog_msg) + " '" + noteTitle + "' ?");
+        builder.setPositiveButton(R.string.yes_button, (dialogInterface, i) -> saveEditActivity());
+        builder.setNegativeButton(R.string.no_button, (dialogInterface, i) -> EditActivity.super.onBackPressed());
 
         AlertDialog dialog = builder.create();
         dialog.show();

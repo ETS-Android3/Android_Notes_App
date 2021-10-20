@@ -1,4 +1,4 @@
-# Android_Notes_App
+# Android Notes App
 Android Notes app allows the creation and maintenance of personal notes. Any number of notes are allowed (including no notes at all). 
 Notes are made up of a title, a note text, and a last-update time. This app uses RecyclerView, Multi-Activity, JSON file, and 
 Options-Menus. This app has been built under the guidance of Prof. Christopher Jones as a part of CSC 472 coursework. 

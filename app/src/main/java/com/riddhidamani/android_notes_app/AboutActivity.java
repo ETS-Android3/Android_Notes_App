@@ -2,10 +2,9 @@ package com.riddhidamani.android_notes_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-
 import java.util.Objects;
 
-
+// About Activity Class
 public class AboutActivity extends AppCompatActivity {
 
     @Override

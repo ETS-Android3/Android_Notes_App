@@ -1,6 +1,7 @@
 package com.riddhidamani.android_notes_app;
 
 
+import androidx.annotation.NonNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -10,13 +11,13 @@ public class Note implements Serializable, Comparable<Note> {
     private String noteTitle = "";
     private String noteText = "";
     private Date lastUpdateTime;
-    private static int counter = 1;
+    //private static int counter = 1;
 
     public Note(String noteTitle, String noteText) {
         this.noteTitle = noteTitle;
         this.noteText = noteText;
         this.lastUpdateTime = new Date();
-        counter++;
+        //counter++;
     }
 
     public String getNoteTitle() {
@@ -54,6 +55,7 @@ public class Note implements Serializable, Comparable<Note> {
         return 0;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Note{" +

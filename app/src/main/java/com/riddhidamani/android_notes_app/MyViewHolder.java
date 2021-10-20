@@ -6,6 +6,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+// MyViewHolder Class
 public class MyViewHolder extends RecyclerView.ViewHolder {
 
     TextView noteTitle;

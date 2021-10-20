@@ -15,4 +15,11 @@
     <string name="delete_note">Delete Note</string>
     <string name="save_note_msg">Note Saved!</string>
     <string name="bck_btn_bye_msg">The Back button was pressed - Bye!</string>
+    <string name="note_not_found">Note not found!</string>
+    <string name="no_title_warn_msg">Note cannot be saved without title! Do you want to exit without saving?</string>
+    <string name="no_title_heading">No Title</string>
+    <string name="yes_button">YES</string>
+    <string name="no_button">NO</string>
+    <string name="save_note_title">Save Note</string>
+    <string name="save_note_dialog_msg">Your note is not saved! Save Note </string>
 </resources>

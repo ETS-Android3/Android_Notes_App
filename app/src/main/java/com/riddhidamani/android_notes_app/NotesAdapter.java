@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
+// NotesAdapter Class
 public class NotesAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     private static final String TAG = "NotesAdapter";

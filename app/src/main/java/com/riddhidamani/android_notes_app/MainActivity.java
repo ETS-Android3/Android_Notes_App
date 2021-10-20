@@ -31,6 +31,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Android Notes App allows the creation and maintenance of personal notes. Any number of notes are allowed
+ * (including no notes at all). Notes are made up of a title, a note text, and a last-update time.
+ *
+ * @author  Riddhi Damani
+ * @version 1.0
+ * @since   2021-10-19
+ *
+ * Functionalities of this app: 1) Adding a new note 2) Editing an already existing note 3) Deleting a note 4) Saving of the
+ * notesList to the JSON File - this happens on the onPause() method. 5) About the app activity.
+ *
+ */
+
+// Main Activity Class
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
 
     private static final String TAG = "MainActivity";
@@ -101,15 +115,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getResources().getString(R.string.delete_note));
         builder.setMessage(getResources().getString(R.string.delete_note)+ " '" + note.getNoteTitle() + "'?");
-        builder.setPositiveButton("Yes", (dialog, id) -> {
+        builder.setPositiveButton(R.string.yes_button, (dialog, id) -> {
             notesList.remove(position);
             String app_name = getResources().getString(R.string.app_name);
             setTitle( app_name + " (" + notesList.size() + ")");
             notesAdapter.notifyDataSetChanged();
             Toast.makeText(this, "Note '" + note.getNoteTitle() + "' Deleted!", Toast.LENGTH_SHORT).show();
-            writeDataToJSON();
+            //writeDataToJSON();
         });
-        builder.setNegativeButton("No", (dialog, id) -> {
+        builder.setNegativeButton(R.string.no_button, (dialog, id) -> {
             //super.onBackPressed();
             return;
         });
@@ -135,13 +149,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // When info icon is clicked, About Activity is opened.
     public void openAboutActivity() {
         Intent intent = new Intent(this, AboutActivity.class);
-        activityResultLauncher.launch(intent);
-        //startActivity(intent);
+        startActivity(intent);
     }
 
     public void handleResult(ActivityResult result) {
         Log.d(TAG, "On handleResult Method: ");
-        if(result.getResultCode() == 01) {
+        if(result.getResultCode() == 1) {
             Intent data = result.getData();
             if(data != null) {
                 // Extract data here
@@ -152,12 +165,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     notesAdapter.notifyDataSetChanged();
                     String app_name = getResources().getString(R.string.app_name);
                     setTitle( app_name + " (" + notesList.size() + ")");
-                    writeDataToJSON();
+                    //writeDataToJSON();
                 }
             }
             Log.d(TAG, "onActivityResult: Return from Edit Activity: Add note");
         }
-        else if(result.getResultCode() == 02) {
+        else if(result.getResultCode() == 2) {
             Intent data = result.getData();
             if(data != null) {
                 note = (Note) data.getSerializableExtra("EDIT_NOTE");
@@ -172,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.d(TAG, "handleResult: Returning from EditActivity: Edited Existing Note!");
         }
         else {
-            //Toast.makeText(this, "Unexpected Request Code Received!!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "No Changes Made!!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -236,13 +249,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         writeDataToJSON();
         super.onPause();
     }
-
-    //    @Override
-//    protected void onResume() {
-//        notesList.clear();
-//        notesList.addAll(readJSONFile());
-//        super.onResume();
-//    }
 
     @Override
     public void onBackPressed() {
